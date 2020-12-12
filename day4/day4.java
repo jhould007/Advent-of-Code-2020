@@ -2,8 +2,6 @@ package day4;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class day4 {
@@ -17,8 +15,7 @@ public class day4 {
         int validPassports = 0; 
         for(String passport: passports) {
             if(reqFieldsPresent(passport)) {
-                //This is where fields must be checked for validity
-                //Convert each passport into a string array, sort it, and then process it to see if the fields are valid 
+                //Break the passport into its individual required fields and check for validity 
                 String[] fields = passport.split(" "); 
                 if(byrValid(fields) && eclValid(fields) && eyrValid(fields) && hclValid(fields) && hgtValid(fields) && iyrValid(fields) && pidValid(fields)) {
                     validPassports++; 
@@ -130,6 +127,7 @@ public class day4 {
         if(!hcl.contains("#")) {return false;}
         if(hcl.length() != 7) {return false;}
 
+        //If any character after the # is not a hex digit, the string is not a hex value
         char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'}; 
         for(int i = 1; i < hcl.length(); i++) {
             if(!elementPresent(hcl.charAt(i), hexDigits)) {
@@ -143,10 +141,12 @@ public class day4 {
     public static boolean hgtValid(String[] fields) {
         String hgt = getFieldValue("hgt", fields);
 
+        //If units are not provided, hgt is not valid
         if(!hgt.contains("cm") && !hgt.contains("in")) {
             return false; 
         }
 
+        //Process height in cm
         else if(hgt.contains("cm")) {
             String hgtCmString = ""; 
             int i = 0; 
@@ -160,6 +160,7 @@ public class day4 {
             }
         }
 
+        //Process height in in 
         else if(hgt.contains("in")) {
             String hgtInString = ""; 
             int i = 0; 
@@ -189,7 +190,7 @@ public class day4 {
         String pid = getFieldValue("pid", fields);
         boolean isNumber = true;
 
-        //Check if the value of pid is purely comprised of digits
+        //Check if the value of pid is purely comprised of digits. If not, the pid is not valid. 
         for(int i = 0; i < pid.length(); i++) {
             if(!Character.isDigit(pid.charAt(i))) {
                 isNumber = false; 
