@@ -22,11 +22,25 @@ public class day5 {
             String columnCode = boardingPass.substring(7, boardingPass.length());
             int row = findRow(rows, boardingPass);
             int column = findColumn(columns, columnCode);
-            // System.out.println("For the boarding pass " + boardingPass + ", The row is " + row + ", and the column is " + column + ".");
+           //  System.out.println("For the boarding pass " + boardingPass + ", The row is " + row + ", and the column is " + column + ".");
             int seatID = (row * 8) + column;
             seatIDs.add(seatID);
         }
-        System.out.println("The highest seat ID is " + Collections.max(seatIDs) + ".");
+
+        //Find largest and smallest seat IDs 
+        int maxSeatID = Collections.max(seatIDs); 
+        int minSeatID = Collections.min(seatIDs); 
+        int mySeatID = 0; 
+        System.out.println("The highest seat ID is " + maxSeatID + ".");
+        System.out.println("The lowest seat ID is " + minSeatID + "."); 
+
+        //Go through all numbers from lowest seat ID to highest, and if any number isn't present in the seatIDs arraylist, it is your seat ID. 
+        for(int i = minSeatID; i <= maxSeatID; i++) {
+            if(!seatIDs.contains(i)) {
+                mySeatID = i; 
+            }
+        }
+        System.out.println("My seat ID is " + mySeatID + "."); 
         sc.close(); 
     }
 
