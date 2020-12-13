@@ -3,10 +3,9 @@ package day6;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class day6 {
+public class day6part1 {
 
     // Split the input file into separate groups.
     // For each group, count the number of unique characters.
